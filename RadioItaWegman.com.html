@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Music to Radio Ita Wegman</title>
+    <link rel="stylesheet" type="text/css" href="sashapro.css">
+    <style>
+        /* CSS for the alert */
+        .alert {
+            position: fixed;
+            top: 20%; /* Adjust the top value to move the alert higher */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: red;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            border-radius: 5px;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="https://formsubmit.co/radio.ita.wegman@gmail.com" method="POST" onsubmit="return validateForm()">
+            <h3>RADIO ITA WEGMAN SONG REQUEST</h3>
+            <input type="text" name="name" id="name" placeholder="Your name" required autocomplete="off">
+            <input type="text" name="song" placeholder="Enter song" required autocomplete="off">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <audio id="submitSound">
+        <source src="ping122.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="negativeSound">
+        <source src="negative22.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function validateForm() {
+            var nameInput = document.getElementById('name');
+            var nameValue = nameInput.value.trim().toLowerCase();
+
+            // List of prohibited words
+            var prohibitedWords = ["pula", "muie", "dick", "fuck", "taci", "nu vreau", "sugi", "itaflegman","suge","mata","flegman","nesimtit", "jegos","jegosi","bou"];
+
+            // Check if the input contains any prohibited word
+            for (var i = 0; i < prohibitedWords.length; i++) {
+                if (nameValue.includes(prohibitedWords[i])) {
+                    var alertText = 'Please avoid using inappropriate language or words.';
+                    displayAlert(alertText);
+                    playNegativeSound(); // Play the "negative22.mp3" sound
+                    nameInput.value = ''; // Clear the input field
+                    return false; // Prevent form submission
+                }
+            }
+
+            // Regular expression to match names with alphabets and spaces
+            var namePattern = /^[A-Za-z\s]+$/;
+
+            if (!namePattern.test(nameValue)) {
+                var alertText = 'Please enter a valid name with alphabets and spaces only.';
+                displayAlert(alertText);
+                nameInput.value = ''; // Clear the input field
+                return false; // Prevent form submission
+            }
+
+            return true; // Allow form submission
+        }
+
+        // Function to display the alert
+        function displayAlert(alertText) {
+            var alertDiv = document.createElement('div');
+            alertDiv.className = 'alert';
+            alertDiv.textContent = alertText;
+            document.body.appendChild(alertDiv);
+            setTimeout(function() {
+                document.body.removeChild(alertDiv);
+            }, 3000); // Remove the alert after 3 seconds
+        }
+
+        // Function to play the "ping122.mp3" sound
+        function playSubmitSound() {
+            var audio = document.getElementById('submitSound');
+            audio.play();
+        }
+
+        // Function to play the "negative22.mp3" sound
+        function playNegativeSound() {
+            var audio = document.getElementById('negativeSound');
+            audio.play();
+        }
+    </script>
+</body>
+</html>
